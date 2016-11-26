@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{38F11943-6FF8-FB3E-2137-704D95DD9C5B}") = "Character Customization Tutorial", "Assembly-CSharp.csproj", "{A8F5BD88-FC4D-5804-CBDC-BA7FA00BD7DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8F5BD88-FC4D-5804-CBDC-BA7FA00BD7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F5BD88-FC4D-5804-CBDC-BA7FA00BD7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F5BD88-FC4D-5804-CBDC-BA7FA00BD7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F5BD88-FC4D-5804-CBDC-BA7FA00BD7DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
