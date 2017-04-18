@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/test.unity
+- path: Assets/_DEMO/Test Thirdperson Demo/Thirdperson Blendshape Test.unity
   isLoaded: 1
   isActive: 1

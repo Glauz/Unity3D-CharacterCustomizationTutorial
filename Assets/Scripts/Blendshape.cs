@@ -1,15 +1,18 @@
 ﻿/// <summary>
 /// Wrapper Class for Positive & Negative Values of Blendshapes
 /// </summary>
-public class Blendshape
-{    
-    public int positiveIndex { get; set; }
-    public int negativeIndex { get; set; }
-
-    public Blendshape (int positiveIndex, int negativeIndex)
+namespace Glauz.Blendshapes
+{
+    public class Blendshape
     {
-        this.positiveIndex = positiveIndex;
-        this.negativeIndex = negativeIndex;
-    }
+        public int positiveIndex { get; set; }
+        public int negativeIndex { get; set; }
 
+        public Blendshape(int positiveIndex, int negativeIndex)
+        {
+            this.positiveIndex = positiveIndex;
+            this.negativeIndex = negativeIndex;
+        }
+
+    } 
 }

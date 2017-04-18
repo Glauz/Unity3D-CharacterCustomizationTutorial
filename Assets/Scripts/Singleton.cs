@@ -1,29 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour{
-
-    private static T instance;
-
-    public static T Instance
+namespace Glauz
+{
+    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        get
-        {
-            if (instance == null)
-                instance = new GameObject().AddComponent<T>();
 
-            return instance;
-        }
-    }
+        private static T instance;
 
-    public void Awake()
-    {
-        if (instance != null)
+        public static T Instance
         {
-            Debug.Log("Other Instance of " + this.GetType().Name + " has been destroyed!");
+            get
+            {
+                if (instance == null)
+                    instance = new GameObject().AddComponent<T>();
+
+                return instance;
+            }
         }
 
-        instance = this as T;
-    }
+        public void Awake()
+        {
+            if (instance != null)
+            {
+                Debug.Log("Other Instance of " + this.GetType().Name + " has been destroyed on GameObject " + name + "!");
+            }
 
+            instance = this as T;
+        }
+
+    } 
 }
