@@ -11,17 +11,35 @@ namespace Glauz.Blendshapes
     {
 
         private int shapeBlendSelectedIndex = 0;
+        private bool runOnce;
 
         public override void OnInspectorGUI()
         {
+
             base.OnInspectorGUI();
 
             //Space
             EditorGUILayout.Space(); EditorGUILayout.Space(); EditorGUILayout.Space();
 
+            var characterCustomization = (CharacterCustomization)target;
+
+            //IF NO TARGET, THEN DON"T SHOW ANYTHING
+            if (characterCustomization.target == null)
+            {
+                EditorGUILayout.LabelField("PLEASE SET A TARGET WITH BLENDSHAPES!", EditorStyles.boldLabel);
+
+                //if (GUILayout.Button("REFRESH"))
+                //    runOnce = false;
+
+                return;
+            }
 
             EditorGUILayout.LabelField("CREATE SLIDER", EditorStyles.boldLabel);
-            var characterCustomization = (CharacterCustomization)target;
+
+
+            //If target has been changed then update to new target
+            if (characterCustomization.DoesTargetMatchSkmr())
+                characterCustomization.ClearDatabase();
 
             //**Initialize Blendshapes and get from database
             if (characterCustomization.GetNumberOfEntries() <= 0)
@@ -29,8 +47,19 @@ namespace Glauz.Blendshapes
 
             string[] blendShapeNames = characterCustomization.GetBlendShapeNames();
 
+            //Check if there were any blendshapes on the target Object
             if (blendShapeNames.Length <= 0)
-                throw new System.Exception("Dictionary Amount is 0 !?");
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("NO BLENDSHAPES DETECTED ON THIS TARGET!", EditorStyles.boldLabel);
+                characterCustomization.ClearDatabase();
+
+                //if (GUILayout.Button("REFRESH"))
+                //    runOnce = false;
+
+                return;
+                //throw new System.Exception("Dictionary Amount is 0 !?");
+            }
             //
 
             shapeBlendSelectedIndex = EditorGUILayout.Popup("BlendShapeName", shapeBlendSelectedIndex, blendShapeNames);
@@ -54,14 +83,27 @@ namespace Glauz.Blendshapes
                 GameObject sliderGO = Instantiate(Resources.Load("Blendshape Slider", typeof(GameObject))) as GameObject;
 
                 //Get and set properties of slider (parent to canvas)
-                var slider = sliderGO.GetComponent<BlendShapeSlider>();
-                slider.blendShapeName = characterCustomization.GetBlendShapeNames()[shapeBlendSelectedIndex];   //Fill in the name of the selected Blendshape Name
-                slider.transform.parent = canvas.transform;
-                slider.name = "Slider " + slider.blendShapeName;
-                slider.transform.GetComponentInChildren<Text>().text = slider.blendShapeName;   //Change the Label text for the blendshape
-                slider.GetComponent<RectTransform>().sizeDelta = new Vector2(40f, 40f);
+                var BShapeSlider = sliderGO.GetComponent<BlendShapeSlider>();
+                BShapeSlider.blendShapeName = characterCustomization.GetBlendShapeNames()[shapeBlendSelectedIndex];   //Fill in the name of the selected Blendshape Name
+                BShapeSlider.transform.parent = canvas.transform;
+                BShapeSlider.name = "Slider " + BShapeSlider.blendShapeName;
+                BShapeSlider.transform.GetComponentInChildren<Text>().text = BShapeSlider.blendShapeName;   //Change the Label text for the blendshape
+                BShapeSlider.GetComponent<RectTransform>().sizeDelta = new Vector2(40f, 40f);
 
-                Debug.Log("Slider \"" + slider.blendShapeName + "\" Created!");
+                //Get Blendshape wrapper
+                Blendshape blendShape = characterCustomization.GetBlendshape(BShapeSlider.blendShapeName);
+
+                //Slider Component Properties
+                var slider = BShapeSlider.GetComponent<Slider>();
+
+                Debug.Log(blendShape.negativeIndex);
+
+                if (blendShape.negativeIndex == -1)
+                {
+                    slider.minValue = 0f;
+                }
+
+                Debug.Log("Slider \"" + BShapeSlider.blendShapeName + "\" Created!");
             }
 
         }

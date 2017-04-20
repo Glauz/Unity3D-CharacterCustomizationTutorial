@@ -143,5 +143,21 @@ namespace Glauz.Blendshapes
         {
             return blendShapeDatabase.Count;
         }
+
+        public Blendshape GetBlendshape(string name)
+        {
+            return blendShapeDatabase[name];
+        }
+
+        //Use for editor to check if the Target has been changed so needs to update accordingly
+        public bool DoesTargetMatchSkmr()
+        {
+            return (target == skmr) ? true : false;
+        }
+
+        public void ClearDatabase()
+        {
+            blendShapeDatabase.Clear();
+        }
     } 
 }
