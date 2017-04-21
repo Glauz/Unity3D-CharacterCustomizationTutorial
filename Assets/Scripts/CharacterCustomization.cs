@@ -76,11 +76,13 @@ namespace Glauz.Blendshapes
 
         private void ParseBlendShapesToDictionary()
         {
+            //Get all blendshape names
             List<string> blendshapeNames = Enumerable.Range(0, mesh.blendShapeCount).Select(x => mesh.GetBlendShapeName(x)).ToList();
 
             for (int i = 0; blendshapeNames.Count > 0;)
             {
                 string altSuffix, noSuffix;
+                //Removes the max and min suffixes 
                 noSuffix = blendshapeNames[i].TrimEnd(suffixMax.ToCharArray()).TrimEnd(suffixMin.ToCharArray()).Trim();
 
                 string positiveName = string.Empty, negativeName = string.Empty;
@@ -119,10 +121,21 @@ namespace Glauz.Blendshapes
                     if (exists)
                         postiveIndex = mesh.GetBlendShapeIndex(altSuffix);
                 }
+
+                //Doesn't have a suffix
                 else
+                {
                     postiveIndex = mesh.GetBlendShapeIndex(blendshapeNames[i]);
+                    positiveName = noSuffix;    //This is here so it will remove it (for condition) so its not infinite loop
+                    //print(postiveIndex + " of " + noSuffix);                    
+                }
+
+
+                if (blendShapeDatabase.ContainsKey(noSuffix))
+                    Debug.LogError(noSuffix + " already exists within the Database!");
 
                 blendShapeDatabase.Add(noSuffix, new Blendshape(postiveIndex, negativeIndex));
+
 
                 //Remove Selected Indexes From the List
                 if (positiveName != string.Empty) blendshapeNames.Remove(positiveName);

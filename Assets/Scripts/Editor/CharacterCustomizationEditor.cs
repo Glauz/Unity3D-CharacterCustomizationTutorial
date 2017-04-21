@@ -13,6 +13,8 @@ namespace Glauz.Blendshapes
         private int shapeBlendSelectedIndex = 0;
         private bool runOnce;
 
+        public Canvas canvas;
+
         public override void OnInspectorGUI()
         {
 
@@ -64,10 +66,14 @@ namespace Glauz.Blendshapes
 
             shapeBlendSelectedIndex = EditorGUILayout.Popup("BlendShapeName", shapeBlendSelectedIndex, blendShapeNames);
 
+            //Canvas selector
+            canvas = EditorGUILayout.ObjectField("Manual Cavas Selection:", canvas, typeof(Canvas), true) as Canvas;
 
             if (GUILayout.Button("Create Slider"))
             {
-                var canvas = GameObject.FindObjectOfType<Canvas>();
+                //Auto Find one if canvas is null
+                if (canvas == null)
+                    canvas = GameObject.FindObjectOfType<Canvas>();
 
                 //If canvas doesn't exist, then make one
                 if (canvas == null)
@@ -96,12 +102,21 @@ namespace Glauz.Blendshapes
                 //Slider Component Properties
                 var slider = BShapeSlider.GetComponent<Slider>();
 
-                Debug.Log(blendShape.negativeIndex);
+                //Debug.Log(blendShape.negativeIndex);
 
-                if (blendShape.negativeIndex == -1)
-                {
+                if (blendShape.negativeIndex == -1)                
                     slider.minValue = 0f;
-                }
+
+
+                else if (blendShape.positiveIndex == -1)
+                    slider.maxValue = 0f;
+
+                else                
+                    Debug.Log("Both Values for Blendshape are -1!?");
+
+                slider.value = 0f;
+
+
 
                 Debug.Log("Slider \"" + BShapeSlider.blendShapeName + "\" Created!");
             }
