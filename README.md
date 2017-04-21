@@ -5,6 +5,7 @@ This is the finished project of part 4 of the tutorial series for using blendsha
 [![Picture of Youtube Thumbnail](https://img.youtube.com/vi/ypRhJAfJXAc/0.jpg)](https://www.youtube.com/watch?v=ypRhJAfJXAc)
 
 https://www.youtube.com/watch?v=ypRhJAfJXAc
+
 -----------------------------------------------------------------------------------------------
 
 UPDATE VIDEO
